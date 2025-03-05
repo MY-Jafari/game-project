@@ -1,1 +1,1 @@
-# gamr-project
+# game-project
