@@ -9,7 +9,10 @@
 
 3. دوز (Tic Tac Toe)
 
-4. لانچر (Launcher) برای اجرای بازی‌ها
+4. حدس کلمه (guess word)
+
+5. لانچر (Launcher) برای اجرای بازی‌ها
+
 
 ## نحوه اجرا
 
@@ -24,6 +27,8 @@
 - bomb.py : بازی مین‌یاب (Minesweeper)
 
 - Doz_game.py : بازی دوز (Tic Tac Toe)
+
+- guess_word.py : بازی حدس کلمه (guess word)
 
 - luncher.py : لانچر برای اجرای بازی‌ها
 
@@ -53,7 +58,9 @@
 
 3. Tic Tac Toe
 
-4. Launcher to run the games
+4.guess word
+
+5. Launcher to run the games
 
 ## How to Run
 
@@ -68,6 +75,8 @@ Simply run the luncher.py file to access the game menu and choose any game to pl
 - bomb.py : Minesweeper game
 
 - Doz_game.py : Tic Tac Toe game
+
+- guess_word.py : guess word game
 
 - luncher.py : Launcher to run all games
 

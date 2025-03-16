@@ -7,7 +7,8 @@ def print_menu():
     print("1. Rock Paper Scissors ")
     print("2. Minesweeper")
     print("3. Tic Tac Toe")
-    print("4. Exit")
+    print("4. guess word")
+    print("5. Exit")
     print("=============================")
 def launch_game(game_file):
     try:
@@ -24,7 +25,7 @@ def launch_game(game_file):
 while True:
     clear_screen()
     print_menu()       
-    choice = input("\nPlease select a game (1-4): ")       
+    choice = input("\nPlease select a game (1-5): ")       
     if choice == '1':
         if launch_game('RPS_game.py'):
             input("\nPress Enter to return to menu...")       
@@ -35,6 +36,9 @@ while True:
         if launch_game('Doz_game.py'):
             input("\nPress Enter to return to menu...")       
     elif choice == '4':
+        if launch_game('guess_word.py'):
+            input("\nPress Enter to return to menu...")       
+    elif choice == '5':
         print("\nThank you for playing! Goodbye!")
         break       
     else:
