@@ -13,7 +13,7 @@
 
 5. لانچر (Launcher) برای اجرای بازی‌ها
 
-
+6. فایل های ui 
 ## نحوه اجرا
 
 برای اجرای این پروژه کافیست فایل luncher.py را اجرا کنید. در این فایل می‌توانید از منو بازی‌ها یکی را انتخاب کرده و اجرا کنید.
@@ -42,9 +42,9 @@
 
 - امتیاز بازی دوز: Doz_score.txt
 ## نکات ضروری
-برای اجرای برنامه حداقل ورژن 3.6 پایتون به همراه کتابخانه های مورد نیاز نصب باشد.
+1. برای اجرای برنامه حداقل ورژن 3.6 پایتون به همراه کتابخانه های مورد نیاز نصب باشد.
   
-
+2. کتابخانه pyqt5 نصب باشد.
 
 
 ### Thanks to MrAmiram for the initial idea of ​​this project and participation in its implementation.
@@ -61,6 +61,8 @@
 4.guess word
 
 5. Launcher to run the games
+
+6. UI Files
 
 ## How to Run
 
@@ -91,3 +93,5 @@ Each game saves its scores in separate files:
 - Tic Tac Toe game: Doz_score.txt
 ## Essential Notes
 To run the program, at least Python version 3.6 must be installed along with the required libraries.
+
+2. The pyqt5 library must be installed.

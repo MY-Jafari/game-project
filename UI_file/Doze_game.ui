@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Doz Game</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label_status">
+      <property name="text">
+       <string>your turn</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="btn_00"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="btn_01"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="btn_02"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="btn_10"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="btn_11"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="btn_12"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="btn_20"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="btn_21"/>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="btn_22"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="btn_restart">
+        <property name="text">
+         <string>restart</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_exit">
+        <property name="text">
+         <string>exit</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

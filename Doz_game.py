@@ -1,6 +1,10 @@
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+from ui_Doze_game import Ui_MainWindow
 import math
 import os
-class Player():
+
+class Player:
     def __init__(self, name):
         self.name = name
         self.wins = 0
@@ -10,54 +14,104 @@ class Player():
 
     def update_score(self, result):
         if result == "win":
-            print(f"{self.name} wins this round!")
             self.wins += 1
-            self.score += 3  
+            self.score += 3
         elif result == "loss":
-            print(f"{self.name} lost this round!")
             self.losses += 1
         elif result == "tie":
-            print(f"{self.name}, this round is a tie!")
             self.ties += 1
-            self.score += 1  
+            self.score += 1
 
-class Doz():
+class DozGame(QtWidgets.QMainWindow):
     def __init__(self, player):
-        self.board = [[' ' for _ in range(3)] for _ in range(3)]
+        super().__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+
         self.player = player
         self.human = 'O'
         self.computer = 'X'
+        self.board = [[' ' for _ in range(3)] for _ in range(3)]
 
-    def print_board_with_coordinates(self):
-        names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
-        coord_map = self.convert_to_coordinates()  
-        
+        self.buttons = [
+            [self.ui.btn_00, self.ui.btn_01, self.ui.btn_02],
+            [self.ui.btn_10, self.ui.btn_11, self.ui.btn_12],
+            [self.ui.btn_20, self.ui.btn_21, self.ui.btn_22]
+        ]
+
         for i in range(3):
-            print(" | ".join([names[i * 3 + j] if self.board[i][j] == ' ' else self.board[i][j] for j in range(3)]))
-            if i < 2:
-                print(" ---" * 2)  
-    def print_board(self):
+            for j in range(3):
+                self.buttons[i][j].clicked.connect(lambda _, r=i, c=j: self.handle_click(r, c))
+
+        self.ui.btn_restart.clicked.connect(self.reset_board)
+        self.ui.btn_exit.clicked.connect(self.close)
+
+        self.reset_board()
+
+    def reset_board(self):
+        self.board = [[' ' for _ in range(3)] for _ in range(3)]
+        for row in range(3):
+            for col in range(3):
+                btn = self.buttons[row][col]
+                btn.setText("")
+                btn.setEnabled(True)
+        self.ui.label_status.setText(f"{self.player.name}'s turn")
+
+    def handle_click(self, row, col):
+        if self.board[row][col] != ' ':
+            return
+
+        self.board[row][col] = self.human
+        self.buttons[row][col].setText(self.human)
+        self.buttons[row][col].setEnabled(False)
+
+        if self.check_winner(self.human):
+            self.player.update_score("win")
+            self.end_game(f"{self.player.name} wins!")
+            return
+        if not self.is_move_left():
+            self.player.update_score("tie")
+            self.end_game("It's a tie!")
+            return
+
+        move = self.find_best_move()
+        if move:
+            r, c = move
+            self.board[r][c] = self.computer
+            self.buttons[r][c].setText(self.computer)
+            self.buttons[r][c].setEnabled(False)
+
+        if self.check_winner(self.computer):
+            self.player.update_score("loss")
+            self.end_game("Computer wins!")
+            return
+        if not self.is_move_left():
+            self.player.update_score("tie")
+            self.end_game("It's a tie!")
+            return
+
+    def end_game(self, message):
+        self.ui.label_status.setText(message)
+        QMessageBox.information(self, "Game Over", message)
         for i in range(3):
-            print(" | ".join(self.board[i]).replace(" ", "-"))  
-            if i < 2:
-                print(" ---" * 2)  
+            for j in range(3):
+                self.buttons[i][j].setEnabled(False)
 
     def is_move_left(self):
         return any(' ' in row for row in self.board)
 
     def check_winner(self, mark):
-        for row in range(3):
-            if self.board[row][0] == self.board[row][1] == self.board[row][2] == mark:
+        for i in range(3):
+            if all(self.board[i][j] == mark for j in range(3)):
                 return True
-        for col in range(3):
-            if self.board[0][col] == self.board[1][col] == self.board[2][col] == mark:
+            if all(self.board[j][i] == mark for j in range(3)):
                 return True
-        if self.board[0][0] == self.board[1][1] == self.board[2][2] == mark:
+        if all(self.board[i][i] == mark for i in range(3)):
             return True
-        if self.board[0][2] == self.board[1][1] == self.board[2][0] == mark:
+        if all(self.board[i][2 - i] == mark for i in range(3)):
             return True
         return False
-    
+
     def evaluate(self):
         if self.check_winner(self.computer):
             return 10
@@ -67,145 +121,55 @@ class Doz():
 
     def minimax(self, depth, is_max):
         score = self.evaluate()
-
         if score == 10 or score == -10:
             return score
         if not self.is_move_left():
             return 0
-        
+
         if is_max:
             best = -math.inf
-            for row in range(3):
-                for col in range(3):
-                    if self.board[row][col] == ' ':
-                        self.board[row][col] = self.computer
-                        best = max(best, self.minimax(depth+1, False))
-                        self.board[row][col] = ' '
+            for i in range(3):
+                for j in range(3):
+                    if self.board[i][j] == ' ':
+                        self.board[i][j] = self.computer
+                        best = max(best, self.minimax(depth + 1, False))
+                        self.board[i][j] = ' '
             return best
         else:
             best = math.inf
-            for row in range(3):
-                for col in range(3):
-                    if self.board[row][col] == ' ':
-                        self.board[row][col] = self.human
-                        best = min(best, self.minimax(depth+1, True))
-                        self.board[row][col] = ' '
+            for i in range(3):
+                for j in range(3):
+                    if self.board[i][j] == ' ':
+                        self.board[i][j] = self.human
+                        best = min(best, self.minimax(depth + 1, True))
+                        self.board[i][j] = ' '
             return best
-        
+
     def find_best_move(self):
         best_val = -math.inf
-        best_move = (-1, -1)
-
-        for row in range(3):
-            for col in range(3):
-                if self.board[row][col] == ' ':
-                    self.board[row][col] = self.computer
-                    move_val = self.minimax(0, False)
-                    self.board[row][col] = ' ' 
-
-                    if move_val > best_val:
-                        best_move = (row, col)
-                        best_val = move_val
-        return best_move
-    
-    def convert_to_coordinates(self):
-        names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
-        coords = {}
+        best_move = None
         for i in range(3):
             for j in range(3):
-                coords[names[i * 3 + j]] = (i, j)  
-        return coords
+                if self.board[i][j] == ' ':
+                    self.board[i][j] = self.computer
+                    move_val = self.minimax(0, False)
+                    self.board[i][j] = ' '
+                    if move_val > best_val:
+                        best_val = move_val
+                        best_move = (i, j)
+        return best_move
 
-    def play_game(self):
-        coord_map = self.convert_to_coordinates()
-        
-        while self.is_move_left():
-            self.print_board_with_coordinates()  
-            print("\nAvailable choices: a, b, c, d, e, f, g, h, i")
-            move = input("Enter your choice (a-i): ").lower()
-            while move not in coord_map:
-                print("Invalid move!")
-                move = input("Enter your choice (a-i): ").lower()
-            
-            row, col = coord_map[move]
-            while self.board[row][col] != ' ':
-                print("Invalid choice!")
-                move = input("Enter your choice (a-i): ").lower()
-                row, col = coord_map[move]
+if __name__ == "__main__":
+    import sys
+    from PyQt5.QtWidgets import QInputDialog
 
-            self.board[row][col] = self.human
+    app = QtWidgets.QApplication(sys.argv)
 
-            if self.check_winner(self.human):
-                self.print_board_with_coordinates()  
-                self.player.update_score("win")
-                break
-            if not self.is_move_left():
-                self.print_board_with_coordinates()  
-                self.player.update_score("tie")
-                break
+    name, ok = QInputDialog.getText(None, "Enter Name", "Please enter your name:")
+    if not ok or not name.strip():
+        sys.exit()
+    player = Player(name.strip())
 
-            print("Computer's turn...")
-            best_move = self.find_best_move()
-            self.board[best_move[0]][best_move[1]] = self.computer
-
-            if self.check_winner(self.computer):
-                self.print_board_with_coordinates()  
-                self.player.update_score("loss")
-                break
-            if not self.is_move_left():
-                self.print_board_with_coordinates()  
-                self.player.update_score("tie")
-                break
-
-class score():  
-    @staticmethod
-    def print_score(player):
-        print(f"{player.name}'s Stats: \n Wins: {player.wins} \n Losses: {player.losses} \n Ties: {player.ties} \n Score: {player.score}")
-
-    @staticmethod
-    def save_score(player):
-        base_dir = os.path.dirname(os.path.abspath(__file__)) 
-        score_file_path = os.path.join(base_dir, "Doz_score.txt")
-        with open(score_file_path, "a") as file:
-            file.write(f"Player: {player.name}'s Stats: \n")
-            file.write(f"{round} rounds play\n")
-            file.write(f"Wins: {player.wins}\n")
-            file.write(f"Losses: {player.losses}\n")
-            file.write(f"Ties: {player.ties}\n")
-            file.write(f"Score: {player.score}\n")
-            file.write("-" * 20 + "\n")
-            
-    @staticmethod
-    def load_score():
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        score_file_path = os.path.join(base_dir, "Doz_score.txt")
-        print("----------Previous scores----------")
-        try:
-            with open(score_file_path, "r") as file:
-                print(file.read()) 
-        except FileNotFoundError:
-            print("Previous score data not found.")
-
-
-def rounds():
-    for i in range(int(round)):
-        print(f"Round {i+1}")
-        game = Doz(player1)
-        game.play_game()
-        print("-" * 20)
-
-print("Welcome to the Tic Tac Toe game!")
-print("Your choice mark with 'O' and computer choice mark with 'X'!")
-
-Player.name = input("Enter your name: ")
-player1 = Player(Player.name)
-
-round = input(f"Hello {Player.name}! how many rounds would you like to play? ")
-while not round.isdigit() or int(round) < 1:
-    round = input("Please enter a valid number of rounds: ")
-print(f"You will be playing against the computer. The first to win {round} rounds wins the game!")
-
-rounds()
-score.print_score(player1)
-score.save_score(player1)
-score.load_score()
+    window = DozGame(player)
+    window.show()
+    sys.exit(app.exec_())

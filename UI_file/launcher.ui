@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>640</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="Doz">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>70</y>
+     <width>171</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Doz Game</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>50</width>
+     <height>50</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="RPS">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>160</y>
+     <width>171</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>RPS Game</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Mine">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>250</y>
+     <width>171</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Minesweeper</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Guess">
+   <property name="geometry">
+    <rect>
+     <x>232</x>
+     <y>340</y>
+     <width>171</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Guess Word</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

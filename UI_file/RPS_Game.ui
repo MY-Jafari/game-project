@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RPSGameWindow</class>
+ <widget class="QMainWindow" name="RPSGameWindow">
+  <property name="windowTitle">
+   <string>RPS Extended Game</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_main">
+
+    <item>
+     <widget class="QLabel" name="label_welcome">
+      <property name="text">
+       <string>Welcome to Rock, Paper, Scissors, Water, Fire, Earth Game!</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_playerInfo">
+      <item>
+       <widget class="QLabel" name="label_name">
+        <property name="text">
+         <string>Player Name:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_name"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_rounds">
+        <property name="text">
+         <string>Rounds:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spinBox_rounds">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>50</number>
+        </property>
+        <property name="value">
+         <number>3</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_start">
+        <property name="text">
+         <string>Start Game</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+
+    <item>
+     <widget class="QLabel" name="label_instruction">
+      <property name="text">
+       <string>Choose your move:</string>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <layout class="QHBoxLayout" name="layout_buttons">
+      <item>
+       <widget class="QPushButton" name="btn_rock">
+        <property name="text">
+         <string>Rock</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_paper">
+        <property name="text">
+         <string>Paper</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_scissors">
+        <property name="text">
+         <string>Scissors</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_water">
+        <property name="text">
+         <string>Water</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_fire">
+        <property name="text">
+         <string>Fire</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_earth">
+        <property name="text">
+         <string>Earth</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+
+    <item>
+     <widget class="QLabel" name="label_result">
+      <property name="text">
+       <string>Round result will be shown here.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <layout class="QHBoxLayout" name="layout_scores">
+      <item>
+       <widget class="QLabel" name="label_score">
+        <property name="text">
+         <string>Wins: 0 | Losses: 0 | Ties: 0</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_show_scores">
+        <property name="text">
+         <string>Show Previous Scores</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
